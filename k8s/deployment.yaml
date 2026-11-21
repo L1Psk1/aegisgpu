@@ -12,6 +12,8 @@ spec:
       labels:
         app: aegisgpu-api
     spec:
+      serviceAccountName: aegisgpu-api-sa
+      automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
         runAsUser: 10001
