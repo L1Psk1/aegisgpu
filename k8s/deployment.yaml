@@ -12,10 +12,24 @@ spec:
       labels:
         app: aegisgpu-api
     spec:
-     containers:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+
+      containers:
         - name: aegisgpu-api
-          image: aegisgpu-api:v1
+          image: aegisgpu-api:v2
           imagePullPolicy: Never
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
 
           ports:
             - containerPort: 8000
